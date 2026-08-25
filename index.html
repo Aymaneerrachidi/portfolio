@@ -4,176 +4,420 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Aymane Er-rachidi — Portfolio</title>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:ital,wght@0,400;0,500;0,600;1,400&family=Archivo:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet"/>
   <style>
     :root {
-      --bg: #080a0f; --surface: #0e1117; --border: #1e2435;
-      --accent: #00e5ff; --accent2: #7b61ff;
-      --text: #e8eaf0; --muted: #5a6080; --card: #111520;
+      --paper: #e4e9d4;
+      --paper-deep: #d6ddbf;
+      --ink: #23271a;
+      --ink-soft: #4a5038;
+      --muted: #7d866a;
+      --line: #c3cca8;
+      --line-dark: #23271a;
+      --accent: #47691f;
+      --accent-deep: #365214;
+      --accent-bright: #a9c479;
+      --pine: #6b5a1f;
     }
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     html { scroll-behavior: smooth; }
-    body { background: var(--bg); color: var(--text); font-family: 'Syne', sans-serif; overflow-x: hidden; }
+    ::selection { background: var(--accent); color: var(--paper); }
+    body {
+      background: var(--paper);
+      color: var(--ink);
+      font-family: 'Archivo', sans-serif;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    /* paper grain */
+    body::before {
+      content: ''; position: fixed; inset: 0; z-index: 2000; pointer-events: none; opacity: 0.5;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+      background-size: 200px;
+    }
 
-    body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E"); background-size: 180px; pointer-events: none; z-index: 1000; opacity: 0.4; }
+    .mono { font-family: 'IBM Plex Mono', monospace; }
 
+    /* ============ TOP RULE ============ */
+    .top-rule { height: 6px; background: var(--ink); }
 
-    /* NAV */
-    nav { position: fixed; top: 0; left: 0; right: 0; z-index: 500; display: flex; align-items: center; justify-content: space-between; padding: 1.2rem 3rem; backdrop-filter: blur(20px); background: rgba(8,10,15,0.85); border-bottom: 1px solid var(--border); gap: 1rem; }
-    .nav-logo { font-family: 'Space Mono', monospace; font-size: 0.85rem; color: var(--accent); letter-spacing: 0.15em; text-decoration: none; flex-shrink: 0; }
-    .nav-links { display: flex; gap: 2rem; list-style: none; }
-    .nav-links a { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); text-decoration: none; letter-spacing: 0.12em; text-transform: uppercase; transition: color 0.25s; }
-    .nav-links a:hover { color: var(--accent); }
+    /* ============ NAV ============ */
+    nav {
+      position: sticky; top: 0; z-index: 900;
+      display: flex; align-items: stretch; justify-content: space-between;
+      background: var(--paper);
+      border-bottom: 1px solid var(--line-dark);
+    }
+    .nav-logo {
+      font-family: 'Fraunces', serif; font-weight: 900; font-size: 1.15rem;
+      letter-spacing: -0.02em; text-decoration: none; color: var(--ink);
+      padding: 1rem 2rem; border-right: 1px solid var(--line-dark);
+      display: flex; align-items: center; gap: 0.6rem; flex-shrink: 0;
+    }
+    .nav-logo em { color: var(--accent); font-style: italic; }
+    .nav-links { display: flex; list-style: none; align-items: stretch; }
+    .nav-links li { display: flex; }
+    .nav-links a {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; letter-spacing: 0.14em;
+      text-transform: uppercase; text-decoration: none; color: var(--ink-soft);
+      display: flex; align-items: center; padding: 0 1.1rem;
+      border-left: 1px solid var(--line);
+      transition: background 0.2s, color 0.2s;
+    }
+    .nav-links a:hover { background: var(--ink); color: var(--paper); }
+    .lang-toggle { display: flex; align-items: stretch; border-left: 1px solid var(--line-dark); flex-shrink: 0; }
+    .lang-btn {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.66rem; letter-spacing: 0.12em;
+      text-transform: uppercase; padding: 0 1.2rem; background: transparent; color: var(--muted);
+      border: none; border-left: 1px solid var(--line); cursor: pointer;
+      transition: background 0.2s, color 0.2s;
+    }
+    .lang-btn:first-child { border-left: none; }
+    .lang-btn.active { background: var(--accent); color: var(--paper); font-weight: 600; }
 
-    /* LANG TOGGLE */
-    .lang-toggle { display: flex; align-items: center; gap: 0; border: 1px solid var(--border); overflow: hidden; flex-shrink: 0; }
-    .lang-btn { font-family: 'Space Mono', monospace; font-size: 0.68rem; padding: 0.45rem 0.9rem; background: transparent; color: var(--muted); border: none; cursor: pointer; letter-spacing: 0.12em; text-transform: uppercase; transition: background 0.2s, color 0.2s; }
-    .lang-btn.active { background: var(--accent); color: #000; font-weight: 700; }
+    /* ============ HERO ============ */
+    .hero {
+      position: relative;
+      border-bottom: 1px solid var(--line-dark);
+      overflow: hidden;
+    }
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr minmax(280px, 380px);
+      min-height: calc(100vh - 60px);
+    }
+    .hero-main {
+      padding: clamp(2.5rem, 6vw, 5rem) clamp(1.5rem, 5vw, 5rem);
+      display: flex; flex-direction: column; justify-content: center;
+      position: relative;
+    }
+    .hero-kicker {
+      display: flex; align-items: center; gap: 1rem; flex-wrap: wrap;
+      margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+      animation: rise 0.8s 0.05s ease both;
+    }
+    .status-pill {
+      display: inline-flex; align-items: center; gap: 0.55rem;
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.63rem; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--pine);
+      border: 1px solid var(--pine); border-radius: 100px; padding: 0.4rem 0.95rem;
+    }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--pine); animation: pulse 2s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:0.25} }
+    .hero-kicker-line {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.63rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--muted);
+    }
 
-    /* HERO */
-    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: space-between; gap: 4rem; padding: 10rem 3rem 5rem; position: relative; overflow: hidden; }
-    .hero-grid-bg { position: absolute; inset: 0; background-image: linear-gradient(var(--border) 1px, transparent 1px), linear-gradient(90deg, var(--border) 1px, transparent 1px); background-size: 60px 60px; opacity: 0.35; mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black 30%, transparent 100%); }
-    .hero-glow { position: absolute; width: 700px; height: 700px; border-radius: 50%; background: radial-gradient(circle, rgba(0,229,255,0.07) 0%, transparent 70%); top: -200px; right: -200px; pointer-events: none; }
-    .hero-glow2 { position: absolute; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(123,97,255,0.07) 0%, transparent 70%); bottom: -100px; left: -100px; pointer-events: none; }
+    .hero-name {
+      font-family: 'Fraunces', serif;
+      font-size: clamp(3.4rem, 10.5vw, 9rem);
+      font-weight: 900;
+      line-height: 0.88;
+      letter-spacing: -0.035em;
+      text-transform: uppercase;
+      margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+    }
+    .hero-name .row { display: block; overflow: hidden; }
+    .hero-name .row > span { display: inline-block; animation: riseBig 0.9s cubic-bezier(0.16,1,0.3,1) both; }
+    .hero-name .row:nth-child(2) > span { animation-delay: 0.12s; }
+    .hero-name em {
+      font-style: italic; font-weight: 400; color: var(--accent);
+      letter-spacing: -0.02em; text-transform: none;
+    }
+    .hero-sub {
+      max-width: 520px;
+      font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+      line-height: 1.65; color: var(--ink-soft);
+      margin-bottom: clamp(2rem, 3.5vw, 3rem);
+      animation: rise 0.8s 0.25s ease both;
+    }
+    .hero-sub strong { color: var(--ink); font-weight: 600; }
 
-    .hero-left { flex: 1; min-width: 0; position: relative; z-index: 1; }
-    .hero-right { flex-shrink: 0; position: relative; z-index: 1; animation: fadeUp 0.9s 0.4s ease both; }
+    .hero-actions { display: flex; gap: 0.9rem; flex-wrap: wrap; align-items: center; animation: rise 0.8s 0.35s ease both; }
+    .btn {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.1em;
+      text-transform: uppercase; text-decoration: none; cursor: pointer;
+      padding: 0.95rem 1.8rem; border-radius: 100px;
+      display: inline-flex; align-items: center; gap: 0.6rem;
+      transition: transform 0.2s, background 0.2s, color 0.2s, border-color 0.2s;
+    }
+    .btn-solid { background: var(--ink); color: var(--paper); border: 1px solid var(--ink); }
+    .btn-solid:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+    .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--ink); }
+    .btn-ghost:hover { background: var(--ink); color: var(--paper); transform: translateY(-2px); }
+    .btn-small {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.63rem; letter-spacing: 0.09em;
+      text-transform: uppercase; text-decoration: none; color: var(--muted); cursor: pointer;
+      padding: 0.6rem 1.1rem; border: 1px dashed var(--muted); border-radius: 100px;
+      display: inline-flex; align-items: center; gap: 0.45rem;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-small:hover { color: var(--accent); border-color: var(--accent); }
+    .btn-small svg { width: 12px; height: 12px; fill: currentColor; }
 
-    .hero-photo-wrap { position: relative; width: 260px; height: 320px; }
-    .hero-photo-wrap::before { content: ''; position: absolute; inset: -2px; background: linear-gradient(135deg, var(--accent), var(--accent2)); border-radius: 2px; z-index: 0; }
-    .hero-photo-wrap::after { content: ''; position: absolute; top: 12px; left: 12px; right: -12px; bottom: -12px; border: 1px solid var(--border); border-radius: 2px; z-index: -1; }
-    .hero-photo { width: 100%; height: 100%; object-fit: cover; object-position: center top; display: block; position: relative; z-index: 1; border-radius: 1px; filter: grayscale(20%); transition: filter 0.3s; }
-    .hero-photo:hover { filter: grayscale(0%); }
+    /* hero right — portrait column */
+    .hero-side {
+      border-left: 1px solid var(--line-dark);
+      display: flex; flex-direction: column;
+      background: var(--paper-deep);
+      position: relative;
+    }
+    .hero-photo-frame {
+      flex: 1; position: relative; overflow: hidden; min-height: 340px;
+      border-bottom: 1px solid var(--line-dark);
+    }
+    .hero-photo {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; object-position: center top;
+      filter: saturate(1.04) contrast(1.03);
+      transition: filter 0.5s, transform 0.6s ease;
+    }
+    .hero-photo-frame:hover .hero-photo { transform: scale(1.025); }
+    .hero-photo-frame::after {
+      content: ''; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(0deg, rgba(35,39,26,0.16), transparent 40%);
+    }
+    .hero-side-caption {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--ink-soft);
+      padding: 0.85rem 1.4rem; display: flex; justify-content: space-between; gap: 1rem;
+    }
+    .hero-side-caption span:last-child { color: var(--accent); }
 
-    .hero-badge { font-family: 'Space Mono', monospace; font-size: 0.72rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 2rem; animation: fadeUp 0.8s ease both; }
-    .hero-badge::before { content: ''; width: 28px; height: 1px; background: var(--accent); }
-    .hero-name { font-size: clamp(3rem, 7vw, 6.5rem); font-weight: 800; line-height: 0.92; letter-spacing: -0.03em; margin-bottom: 1.5rem; animation: fadeUp 0.8s 0.1s ease both; }
-    .hero-name span { display: block; background: linear-gradient(135deg, #fff 30%, var(--accent) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
-    .hero-tagline { font-family: 'Space Mono', monospace; font-size: clamp(0.75rem, 1.2vw, 0.95rem); color: var(--muted); max-width: 460px; line-height: 1.8; margin-bottom: 2.5rem; animation: fadeUp 0.8s 0.2s ease both; }
-    .hero-cta { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 2rem; animation: fadeUp 0.8s 0.3s ease both; }
+    /* marquee */
+    .marquee {
+      border-bottom: 1px solid var(--line-dark);
+      background: var(--ink); color: var(--paper);
+      overflow: hidden; white-space: nowrap; padding: 0.75rem 0;
+    }
+    .marquee-track { display: inline-flex; gap: 0; animation: scroll 30s linear infinite; }
+    .marquee span {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; letter-spacing: 0.22em;
+      text-transform: uppercase; padding: 0 1.6rem; flex-shrink: 0;
+    }
+    .marquee span::after { content: '✳'; margin-left: 3.2rem; color: var(--accent-bright); }
+    @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-    /* RESUME DOWNLOAD BUTTONS */
-    .resume-btns { display: flex; gap: 0.75rem; flex-wrap: wrap; animation: fadeUp 0.8s 0.35s ease both; }
-    .btn-resume { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.6rem 1.2rem; border: 1px solid var(--border); background: var(--card); color: var(--muted); font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: border-color 0.2s, color 0.2s, background 0.2s; }
-    .btn-resume:hover { border-color: var(--accent2); color: var(--accent2); background: rgba(123,97,255,0.07); }
-    .btn-resume svg { width: 13px; height: 13px; fill: currentColor; flex-shrink: 0; }
+    @keyframes rise { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: none; } }
+    @keyframes riseBig { from { transform: translateY(110%); } to { transform: none; } }
 
-    .btn-primary { padding: 0.85rem 2rem; background: var(--accent); color: #000; font-family: 'Space Mono', monospace; font-size: 0.78rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; border: none; cursor: pointer; transition: transform 0.2s, box-shadow 0.2s; }
-    .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(0,229,255,0.3); }
-    .btn-outline { padding: 0.85rem 2rem; border: 1px solid var(--border); color: var(--text); font-family: 'Space Mono', monospace; font-size: 0.78rem; letter-spacing: 0.1em; text-transform: uppercase; text-decoration: none; cursor: pointer; transition: border-color 0.2s, color 0.2s; }
-    .btn-outline:hover { border-color: var(--accent); color: var(--accent); }
+    /* ============ SECTION SCAFFOLD ============ */
+    section { border-bottom: 1px solid var(--line-dark); }
+    .section-head {
+      display: grid; grid-template-columns: auto 1fr auto;
+      align-items: baseline; gap: 1.5rem;
+      padding: clamp(2rem, 4vw, 3rem) clamp(1.5rem, 5vw, 5rem) clamp(1.2rem, 2vw, 1.8rem);
+    }
+    .section-index {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
+      font-size: clamp(1.6rem, 3vw, 2.4rem); color: var(--accent); line-height: 1;
+    }
+    .section-title {
+      font-family: 'Fraunces', serif; font-weight: 900; letter-spacing: -0.025em;
+      font-size: clamp(1.9rem, 4.5vw, 3.4rem); line-height: 1; text-transform: uppercase;
+    }
+    .section-note {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.15em;
+      text-transform: uppercase; color: var(--muted); text-align: right;
+    }
 
-    .status-pill { display: inline-flex; align-items: center; gap: 0.6rem; padding: 0.5rem 1rem; border: 1px solid var(--border); background: var(--surface); font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; margin-bottom: 1.5rem; animation: fadeUp 0.8s ease both; }
-    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: #00ff88; animation: pulse 2s infinite; }
-    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.3)} }
+    .reveal { opacity: 0; transform: translateY(26px); transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.16,1,0.3,1); }
+    .reveal.visible { opacity: 1; transform: none; }
 
-    .hero-scroll { position: absolute; bottom: 3rem; left: 3rem; font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.15em; text-transform: uppercase; display: flex; align-items: center; gap: 1rem; animation: fadeUp 0.8s 0.6s ease both; }
-    .hero-scroll::after { content: ''; width: 50px; height: 1px; background: var(--muted); }
+    /* ============ SKILLS ============ */
+    .skills-grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line-dark);
+    }
+    .skill-cell { padding: 1.8rem clamp(1.2rem, 2vw, 1.8rem) 2.2rem; border-left: 1px solid var(--line); position: relative; }
+    .skill-cell:first-child { border-left: none; }
+    .skill-cat {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.62rem; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent); margin-bottom: 1.3rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .skill-cat::before { content: ''; width: 8px; height: 8px; background: var(--accent); }
+    .skill-list { display: flex; flex-wrap: wrap; gap: 0.45rem; }
+    .skill-tag {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem;
+      padding: 0.35rem 0.8rem; border: 1px solid var(--line); border-radius: 100px;
+      color: var(--ink-soft); transition: all 0.2s; cursor: default;
+    }
+    .skill-tag:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
-    /* SECTIONS */
-    section { padding: 6rem 3rem; max-width: 1200px; margin: 0 auto; }
-    .section-label { font-family: 'Space Mono', monospace; font-size: 0.68rem; letter-spacing: 0.25em; text-transform: uppercase; color: var(--accent); margin-bottom: 1rem; display: flex; align-items: center; gap: 0.8rem; }
-    .section-label::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 80px; }
-    .section-title { font-size: clamp(2rem, 4vw, 3.2rem); font-weight: 800; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 3.5rem; }
+    /* ============ EXPERIENCE ============ */
+    .exp-row {
+      display: grid; grid-template-columns: minmax(180px, 260px) 1fr;
+      border-top: 1px solid var(--line-dark);
+    }
+    .exp-left {
+      padding: 2.2rem clamp(1.5rem, 5vw, 5rem);
+      border-right: 1px solid var(--line);
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.68rem; line-height: 2;
+      color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em;
+    }
+    .exp-date { color: var(--accent); font-weight: 600; }
+    .exp-right { padding: 2.2rem clamp(1.5rem, 4vw, 4rem); }
+    .exp-role { font-family: 'Fraunces', serif; font-weight: 700; font-size: clamp(1.25rem, 2.2vw, 1.7rem); letter-spacing: -0.01em; margin-bottom: 0.3rem; }
+    .exp-company { font-family: 'IBM Plex Mono', monospace; font-size: 0.7rem; letter-spacing: 0.16em; text-transform: uppercase; color: var(--pine); margin-bottom: 1.2rem; }
+    .exp-bullets { list-style: none; max-width: 640px; }
+    .exp-bullets li { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.7; padding: 0.3rem 0 0.3rem 1.5rem; position: relative; }
+    .exp-bullets li::before { content: '—'; position: absolute; left: 0; color: var(--accent); }
 
-    .skills-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .skill-card { background: var(--card); padding: 2rem; position: relative; overflow: hidden; transition: background 0.3s; }
-    .skill-card:hover { background: #161c2e; }
-    .skill-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 2px; background: linear-gradient(90deg, var(--accent), var(--accent2)); transform: scaleX(0); transform-origin: left; transition: transform 0.3s; }
-    .skill-card:hover::before { transform: scaleX(1); }
-    .skill-category { font-family: 'Space Mono', monospace; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem; }
-    .skill-list { display: flex; flex-wrap: wrap; gap: 0.5rem; }
-    .skill-tag { font-family: 'Space Mono', monospace; font-size: 0.72rem; padding: 0.3rem 0.75rem; border: 1px solid var(--border); color: var(--text); letter-spacing: 0.05em; transition: border-color 0.2s, color 0.2s; }
-    .skill-tag:hover { border-color: var(--accent); color: var(--accent); }
-
-    .exp-item { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; padding: 2.5rem 0; border-bottom: 1px solid var(--border); }
-    .exp-item:last-child { border-bottom: none; }
-    .exp-meta { font-family: 'Space Mono', monospace; font-size: 0.7rem; color: var(--muted); line-height: 1.8; }
-    .exp-date { color: var(--accent); font-weight: 700; }
-    .exp-content h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.3rem; }
-    .exp-company { font-family: 'Space Mono', monospace; font-size: 0.75rem; color: var(--accent2); margin-bottom: 1rem; letter-spacing: 0.1em; }
-    .exp-bullets { list-style: none; }
-    .exp-bullets li { font-size: 0.9rem; color: var(--muted); line-height: 1.7; padding: 0.25rem 0 0.25rem 1.2rem; position: relative; }
-    .exp-bullets li::before { content: '→'; position: absolute; left: 0; color: var(--accent); font-size: 0.75rem; }
-
-    .projects-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; }
-    .project-card { background: var(--card); border: 1px solid var(--border); padding: 2rem; position: relative; overflow: hidden; transition: transform 0.3s, border-color 0.3s; }
-    .project-card:hover { transform: translateY(-4px); border-color: rgba(0,229,255,0.3); }
-    .project-card::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(0,229,255,0.03), rgba(123,97,255,0.03)); opacity: 0; transition: opacity 0.3s; }
-    .project-card:hover::after { opacity: 1; }
-    .project-num { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--border); letter-spacing: 0.1em; margin-bottom: 1.5rem; }
-    .project-title { font-size: 1.15rem; font-weight: 700; margin-bottom: 0.75rem; line-height: 1.3; }
-    .project-desc { font-size: 0.85rem; color: var(--muted); line-height: 1.7; margin-bottom: 1.5rem; }
+    /* ============ PROJECTS ============ */
+    .project-row {
+      display: grid; grid-template-columns: clamp(70px, 9vw, 130px) 1fr auto;
+      gap: clamp(1rem, 3vw, 3rem); align-items: start;
+      padding: clamp(1.8rem, 3vw, 2.6rem) clamp(1.5rem, 5vw, 5rem);
+      border-top: 1px solid var(--line-dark);
+      text-decoration: none; color: inherit;
+      position: relative; transition: background 0.25s;
+    }
+    .project-row:hover { background: var(--paper-deep); }
+    .project-num {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
+      font-size: clamp(1.8rem, 3.5vw, 3rem); color: var(--line); line-height: 1;
+      transition: color 0.25s;
+    }
+    .project-row:hover .project-num { color: var(--accent); }
+    .project-title {
+      font-family: 'Fraunces', serif; font-weight: 800; letter-spacing: -0.015em;
+      font-size: clamp(1.3rem, 2.6vw, 2rem); line-height: 1.15; margin-bottom: 0.6rem;
+    }
+    .project-desc { font-size: 0.92rem; color: var(--ink-soft); line-height: 1.7; max-width: 680px; margin-bottom: 1rem; }
     .project-tags { display: flex; flex-wrap: wrap; gap: 0.4rem; }
-    .project-tag { font-family: 'Space Mono', monospace; font-size: 0.62rem; padding: 0.2rem 0.6rem; background: rgba(0,229,255,0.07); color: var(--accent); border: 1px solid rgba(0,229,255,0.15); letter-spacing: 0.05em; }
+    .project-tag {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.3rem 0.7rem;
+      border: 1px solid var(--line); border-radius: 100px; color: var(--muted);
+    }
+    .project-kind {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.16em;
+      text-transform: uppercase; color: var(--muted); white-space: nowrap;
+      padding-top: 0.6rem;
+      writing-mode: vertical-rl; text-orientation: mixed;
+    }
+    .project-row:hover .project-kind { color: var(--accent); }
+    .project-flag {
+      display: inline-block; font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem;
+      letter-spacing: 0.1em; text-transform: uppercase; color: var(--paper);
+      background: var(--accent); border-radius: 100px; padding: 0.25rem 0.7rem;
+      margin-bottom: 0.7rem;
+    }
 
-    .cert-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); }
-    .cert-card { background: var(--card); padding: 1.5rem 1.8rem; transition: background 0.2s; }
-    .cert-card:hover { background: #161c2e; }
-    .cert-issuer { font-family: 'Space Mono', monospace; font-size: 0.6rem; color: var(--accent2); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 0.4rem; }
-    .cert-name { font-size: 0.88rem; font-weight: 600; line-height: 1.4; }
-    .cert-date { font-family: 'Space Mono', monospace; font-size: 0.58rem; color: var(--muted); margin-top: 0.4rem; }
+    /* ============ EDUCATION ============ */
+    .edu-row {
+      display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: center;
+      padding: clamp(2rem, 3.5vw, 3rem) clamp(1.5rem, 5vw, 5rem);
+      border-top: 1px solid var(--line-dark);
+    }
+    .edu-school { font-family: 'Fraunces', serif; font-weight: 800; font-size: clamp(1.3rem, 2.6vw, 2rem); letter-spacing: -0.015em; margin-bottom: 0.4rem; }
+    .edu-degree { font-family: 'IBM Plex Mono', monospace; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--ink-soft); }
+    .edu-years {
+      font-family: 'Fraunces', serif; font-style: italic; font-weight: 300;
+      font-size: clamp(1.4rem, 2.6vw, 2.2rem); color: var(--accent); white-space: nowrap;
+    }
 
-    .edu-card { background: var(--card); border: 1px solid var(--border); padding: 2.5rem; display: flex; justify-content: space-between; align-items: flex-start; gap: 2rem; position: relative; overflow: hidden; }
-    .edu-card::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: linear-gradient(180deg, var(--accent), var(--accent2)); }
-    .edu-school { font-size: 1.3rem; font-weight: 700; margin-bottom: 0.4rem; }
-    .edu-degree { font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--muted); }
-    .edu-years { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--accent); white-space: nowrap; }
+    /* ============ CERTIFICATIONS ============ */
+    .cert-grid {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      border-top: 1px solid var(--line-dark);
+    }
+    .cert-card {
+      padding: 1.4rem 1.5rem 1.6rem;
+      border-right: 1px solid var(--line); border-bottom: 1px solid var(--line);
+      transition: background 0.2s;
+      position: relative;
+    }
+    .cert-card:hover { background: var(--paper-deep); }
+    .cert-card:hover::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 3px; background: var(--accent); }
+    .cert-issuer { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.5rem; }
+    .cert-name { font-size: 0.86rem; font-weight: 600; line-height: 1.45; }
+    .cert-date { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; color: var(--muted); margin-top: 0.5rem; }
 
-    .contact-wrapper { background: var(--card); border: 1px solid var(--border); padding: 4rem; position: relative; overflow: hidden; }
-    .contact-wrapper::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent), var(--accent2), transparent); }
-    .contact-tagline { font-size: clamp(1.5rem, 3vw, 2.2rem); font-weight: 800; letter-spacing: -0.02em; margin-bottom: 0.75rem; }
-    .contact-sub { font-family: 'Space Mono', monospace; font-size: 0.8rem; color: var(--muted); margin-bottom: 3rem; }
-    .contact-links { display: flex; flex-wrap: wrap; gap: 2rem; }
-    .contact-link { display: flex; align-items: center; gap: 0.75rem; font-family: 'Space Mono', monospace; font-size: 0.78rem; color: var(--text); text-decoration: none; transition: color 0.2s; }
-    .contact-link:hover { color: var(--accent); }
-    .contact-link-icon { width: 36px; height: 36px; border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-size: 1rem; transition: border-color 0.2s; }
-    .contact-link:hover .contact-link-icon { border-color: var(--accent); }
+    /* ============ CONTACT ============ */
+    .contact-section { background: var(--ink); color: var(--paper); border-bottom: none; }
+    .contact-inner { padding: clamp(3.5rem, 8vw, 7rem) clamp(1.5rem, 5vw, 5rem); }
+    .contact-label {
+      font-family: 'IBM Plex Mono', monospace; font-size: 0.64rem; letter-spacing: 0.22em;
+      text-transform: uppercase; color: var(--accent-bright); margin-bottom: 2rem;
+      display: flex; align-items: center; gap: 1rem;
+    }
+    .contact-label::after { content: ''; height: 1px; width: 70px; background: var(--accent-bright); }
+    .contact-big {
+      font-family: 'Fraunces', serif; font-weight: 900; text-transform: uppercase;
+      font-size: clamp(2.4rem, 7vw, 5.5rem); line-height: 0.95; letter-spacing: -0.03em;
+      margin-bottom: 1.2rem;
+    }
+    .contact-big em { font-style: italic; font-weight: 300; color: var(--accent-bright); text-transform: none; }
+    .contact-sub { font-family: 'IBM Plex Mono', monospace; font-size: 0.78rem; color: #9aa583; margin-bottom: 3.5rem; max-width: 520px; line-height: 1.8; }
+    .contact-links { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0; border-top: 1px solid #3d442c; }
+    .contact-link {
+      display: flex; flex-direction: column; gap: 0.5rem;
+      padding: 1.6rem 1.4rem; text-decoration: none; color: var(--paper);
+      border-bottom: 1px solid #3d442c; border-right: 1px solid #3d442c;
+      transition: background 0.2s;
+    }
+    .contact-link:hover { background: var(--accent); color: var(--paper); }
+    .contact-link-label { font-family: 'IBM Plex Mono', monospace; font-size: 0.58rem; letter-spacing: 0.2em; text-transform: uppercase; color: #9aa583; }
+    .contact-link:hover .contact-link-label { color: rgba(244,239,230,0.75); }
+    .contact-link-value { font-family: 'IBM Plex Mono', monospace; font-size: 0.8rem; word-break: break-all; }
 
-    footer { border-top: 1px solid var(--border); padding: 2rem 3rem; display: flex; justify-content: space-between; align-items: center; }
-    .footer-copy { font-family: 'Space Mono', monospace; font-size: 0.65rem; color: var(--muted); letter-spacing: 0.1em; }
-    .footer-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-    .full-divider { width: 100%; height: 1px; background: var(--border); }
+    footer {
+      background: var(--ink); color: #9aa583;
+      padding: 1.5rem clamp(1.5rem, 5vw, 5rem);
+      display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap;
+      border-top: 1px solid #3d442c;
+    }
+    .footer-copy { font-family: 'IBM Plex Mono', monospace; font-size: 0.6rem; letter-spacing: 0.14em; text-transform: uppercase; }
+    .footer-mark { font-family: 'Fraunces', serif; font-style: italic; color: var(--accent-bright); font-size: 0.9rem; }
 
-    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-    .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.7s ease, transform 0.7s ease; }
-    .reveal.visible { opacity: 1; transform: translateY(0); }
-
-    /* i18n hidden */
+    /* ============ i18n ============ */
     [data-lang] { display: none; }
     [data-lang].active-lang { display: inline; }
-    [data-lang-block] { display: none; }
-    [data-lang-block].active-lang { display: block; }
-    [data-lang-flex] { display: none; }
-    [data-lang-flex].active-lang { display: flex; }
 
-    @media (max-width: 900px) {
-      .hero { flex-direction: column-reverse; align-items: flex-start; gap: 2.5rem; }
-      .hero-photo-wrap { width: 180px; height: 220px; }
-    }
-    @media (max-width: 768px) {
-      nav { padding: 1rem 1.5rem; }
+    /* ============ RESPONSIVE ============ */
+    @media (max-width: 1000px) {
       .nav-links { display: none; }
-      .hero { padding: 8rem 1.5rem 4rem; }
-      section { padding: 4rem 1.5rem; }
-      .exp-item { grid-template-columns: 1fr; gap: 0.5rem; }
-      .contact-wrapper { padding: 2.5rem 1.5rem; }
-      footer { flex-direction: column; gap: 1rem; text-align: center; }
-      .edu-card { flex-direction: column; }
+      .skills-grid { grid-template-columns: repeat(2, 1fr); }
+      .skill-cell:nth-child(3) { border-left: none; }
+      .skill-cell { border-top: 1px solid var(--line); }
+      .skill-cell:nth-child(-n+2) { border-top: none; }
+    }
+    @media (max-width: 860px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-side { border-left: none; border-top: 1px solid var(--line-dark); flex-direction: row; }
+      .hero-photo-frame { min-height: 260px; border-bottom: none; }
+      .hero-side-caption { writing-mode: vertical-rl; border-left: 1px solid var(--line-dark); padding: 1.4rem 0.85rem; }
+      .exp-row { grid-template-columns: 1fr; }
+      .exp-left { border-right: none; border-bottom: 1px dashed var(--line); padding-bottom: 1.2rem; }
+      .project-row { grid-template-columns: auto 1fr; }
+      .project-kind { display: none; }
+      .edu-row { grid-template-columns: 1fr; gap: 0.8rem; }
+    }
+    @media (max-width: 560px) {
+      .skills-grid { grid-template-columns: 1fr; }
+      .skill-cell { border-left: none; }
+      .contact-links { grid-template-columns: 1fr; }
     }
   </style>
 </head>
 <body>
 
+<div class="top-rule"></div>
+
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">AE·R</a>
+  <a href="#" class="nav-logo">Aymane<em>&nbsp;E·R</em></a>
   <ul class="nav-links">
-    <li><a href="#about"><span data-lang="en" class="active-lang">About</span><span data-lang="fr">À propos</span></a></li>
     <li><a href="#skills"><span data-lang="en" class="active-lang">Skills</span><span data-lang="fr">Compétences</span></a></li>
     <li><a href="#experience"><span data-lang="en" class="active-lang">Experience</span><span data-lang="fr">Expérience</span></a></li>
     <li><a href="#projects"><span data-lang="en" class="active-lang">Projects</span><span data-lang="fr">Projets</span></a></li>
-    <li><a href="#certifications"><span data-lang="en" class="active-lang">Certs</span><span data-lang="fr">Certifs</span></a></li>
+    <li><a href="#education"><span data-lang="en" class="active-lang">Education</span><span data-lang="fr">Formation</span></a></li>
+    <li><a href="#certifications"><span data-lang="en" class="active-lang">Certifications</span><span data-lang="fr">Certifications</span></a></li>
     <li><a href="#contact">Contact</a></li>
   </ul>
   <div class="lang-toggle">
@@ -183,94 +427,96 @@
 </nav>
 
 <!-- HERO -->
-<div class="hero" id="about">
-  <div class="hero-grid-bg"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-glow2"></div>
+<header class="hero" id="about">
+  <div class="hero-inner">
+    <div class="hero-main">
+      <div class="hero-kicker">
+        <span class="status-pill">
+          <span class="status-dot"></span>
+          <span data-lang="en" class="active-lang">Available for internships</span>
+          <span data-lang="fr">Disponible pour stages</span>
+        </span>
+        <span class="hero-kicker-line">
+          <span data-lang="en" class="active-lang">Engineer-Student · Data &amp; AI · Rabat, Morocco</span>
+          <span data-lang="fr">Étudiant Ingénieur · Data &amp; IA · Rabat, Maroc</span>
+        </span>
+      </div>
 
-  <div class="hero-left">
-    <div class="status-pill">
-      <span class="status-dot"></span>
-      <span data-lang="en" class="active-lang">Available for internships</span>
-      <span data-lang="fr">Disponible pour stages</span>
+      <h1 class="hero-name">
+        <span class="row"><span>Aymane</span></span>
+        <span class="row"><span>Er-<em>rachidi</em></span></span>
+      </h1>
+
+      <p class="hero-sub">
+        <span data-lang="en" class="active-lang">I build intelligent systems at the intersection of <strong>Data Science</strong>, <strong>AI</strong> &amp; modern <strong>web engineering</strong> — from RAG-powered legal assistants to real-time analytics pipelines.</span>
+        <span data-lang="fr">Je conçois des systèmes intelligents à l'intersection de la <strong>Data Science</strong>, de l'<strong>IA</strong> et de l'<strong>ingénierie web</strong> moderne — d'assistants juridiques RAG aux pipelines analytiques temps réel.</span>
+      </p>
+
+      <div class="hero-actions">
+        <a href="#projects" class="btn btn-solid">
+          <span data-lang="en" class="active-lang">View Projects</span>
+          <span data-lang="fr">Voir Projets</span> ↓
+        </a>
+        <a href="#contact" class="btn btn-ghost">
+          <span data-lang="en" class="active-lang">Get in Touch</span>
+          <span data-lang="fr">Me Contacter</span>
+        </a>
+        <a href="https://drive.google.com/uc?export=download&id=1g6EdM6jKJFjZemPfO8MFPQyc3ZD2cWuf" target="_blank" class="btn-small">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4zm-7 4v-2h14v2H5z"/></svg>
+          <span data-lang="en" class="active-lang">Resume EN</span>
+          <span data-lang="fr">CV Anglais</span>
+        </a>
+        <a href="https://drive.google.com/uc?export=download&id=10By7aUeoXJTtf51IUafXEfUjIgpjlifa" target="_blank" class="btn-small">
+          <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4zm-7 4v-2h14v2H5z"/></svg>
+          <span data-lang="en" class="active-lang">Resume FR</span>
+          <span data-lang="fr">CV Français</span>
+        </a>
+      </div>
     </div>
 
-    <span class="hero-badge">
-      <span data-lang="en" class="active-lang">Engineer-Student · Data & AI</span>
-      <span data-lang="fr">Étudiant Ingénieur · Data & IA</span>
-    </span>
-
-    <h1 class="hero-name">
-      <span>Aymane</span>
-      <span>Er-rachidi</span>
-    </h1>
-
-    <p class="hero-tagline">
-      <span data-lang="en" class="active-lang">Building intelligent systems at the intersection of<br/>Data Science, AI & modern web engineering.</span>
-      <span data-lang="fr">Conception de systèmes intelligents à l'intersection de<br/>la Data Science, l'IA & l'ingénierie web moderne.</span>
-    </p>
-
-    <div class="hero-cta">
-      <a href="#projects" class="btn-primary" id="viewProjectsBtn">
-        <span data-lang="en" class="active-lang">View Projects</span>
-        <span data-lang="fr">Voir Projets</span>
-      </a>
-      <a href="#contact" class="btn-outline" id="getInTouchBtn">
-        <span data-lang="en" class="active-lang">Get in Touch</span>
-        <span data-lang="fr">Me Contacter</span>
-      </a>
-    </div>
-
-    <!-- Resume Download Buttons -->
-    <div class="resume-btns">
-      <a href="https://drive.google.com/uc?export=download&id=1g6EdM6jKJFjZemPfO8MFPQyc3ZD2cWuf" target="_blank" class="btn-resume">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4zm-7 4v-2h14v2H5z"/></svg>
-        <span data-lang="en" class="active-lang">Resume (EN)</span>
-        <span data-lang="fr">CV (Anglais)</span>
-      </a>
-      <a href="https://drive.google.com/uc?export=download&id=10By7aUeoXJTtf51IUafXEfUjIgpjlifa" target="_blank" class="btn-resume">
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 16l-4-4h2.5V4h3v8H16l-4 4zm-7 4v-2h14v2H5z"/></svg>
-        <span data-lang="en" class="active-lang">Resume (FR)</span>
-        <span data-lang="fr">CV (Français)</span>
-      </a>
+    <div class="hero-side">
+      <div class="hero-photo-frame">
+        <img src="WhatsApp Image 2026-03-16 at 01.40.53.jpeg" alt="Aymane Er-rachidi" class="hero-photo" />
+      </div>
+      <div class="hero-side-caption">
+        <span>Fig. 01 — <span data-lang="en" class="active-lang">The Engineer</span><span data-lang="fr">L'Ingénieur</span></span>
+        <span>EMSI · 2022—2027</span>
+      </div>
     </div>
   </div>
 
-  <div class="hero-right">
-    <div class="hero-photo-wrap">
-      <img src="WhatsApp Image 2026-03-16 at 01.40.53.jpeg" alt="Aymane Er-rachidi" class="hero-photo" />
+  <div class="marquee" aria-hidden="true">
+    <div class="marquee-track" id="marqueeTrack">
+      <span>Python</span><span>PyTorch</span><span>Deep Learning</span><span>Claude API</span><span>RAG</span><span>Agentic AI</span><span>Django</span><span>React</span><span>Data Science</span><span>MCP</span><span>Vertex AI</span><span>Amazon Bedrock</span><span>Scikit-learn</span><span>MongoDB</span>
     </div>
   </div>
-
-  <div class="hero-scroll">
-    <span data-lang="en" class="active-lang">Scroll to explore</span>
-    <span data-lang="fr">Défiler</span>
-  </div>
-</div>
-
-<div class="full-divider"></div>
+</header>
 
 <!-- SKILLS -->
 <section id="skills">
-  <div class="section-label reveal">
-    <span data-lang="en" class="active-lang">Technical Skills</span>
-    <span data-lang="fr">Compétences Techniques</span>
+  <div class="section-head reveal">
+    <span class="section-index">№01</span>
+    <h2 class="section-title">
+      <span data-lang="en" class="active-lang">Skills</span>
+      <span data-lang="fr">Compétences</span>
+    </h2>
+    <span class="section-note">
+      <span data-lang="en" class="active-lang">Tools of the trade</span>
+      <span data-lang="fr">Outils &amp; technologies</span>
+    </span>
   </div>
-  <h2 class="section-title reveal">
-    <span data-lang="en" class="active-lang">What I work with</span>
-    <span data-lang="fr">Mes outils & technologies</span>
-  </h2>
   <div class="skills-grid reveal">
-    <div class="skill-card">
-      <div class="skill-category"><span data-lang="en" class="active-lang">Languages</span><span data-lang="fr">Langages</span></div>
+    <div class="skill-cell">
+      <div class="skill-cat"><span data-lang="en" class="active-lang">Languages</span><span data-lang="fr">Langages</span></div>
       <div class="skill-list">
         <span class="skill-tag">Python</span><span class="skill-tag">Java</span><span class="skill-tag">C#</span>
         <span class="skill-tag">C++</span><span class="skill-tag">SQL</span><span class="skill-tag">JavaScript</span>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-category">AI / ML / Data</div>
+    <div class="skill-cell">
+      <div class="skill-cat">AI / ML / Data</div>
       <div class="skill-list">
+        <span class="skill-tag">PyTorch</span><span class="skill-tag">Deep Learning</span><span class="skill-tag">3D U-Net</span>
         <span class="skill-tag">Scikit-learn</span><span class="skill-tag">Pandas</span><span class="skill-tag">NumPy</span>
         <span class="skill-tag">Matplotlib</span><span class="skill-tag">Random Forest</span><span class="skill-tag">Regression</span>
         <span class="skill-tag">Claude API</span><span class="skill-tag">Anthropic MCP</span>
@@ -278,15 +524,15 @@
         <span class="skill-tag">Prompt Engineering</span><span class="skill-tag">Agentic AI</span>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-category"><span data-lang="en" class="active-lang">Web Frameworks</span><span data-lang="fr">Frameworks Web</span></div>
+    <div class="skill-cell">
+      <div class="skill-cat"><span data-lang="en" class="active-lang">Web Frameworks</span><span data-lang="fr">Frameworks Web</span></div>
       <div class="skill-list">
         <span class="skill-tag">Django</span><span class="skill-tag">.NET / C#</span><span class="skill-tag">React</span>
         <span class="skill-tag">Node.js</span><span class="skill-tag">Bootstrap</span><span class="skill-tag">Java Swing</span>
       </div>
     </div>
-    <div class="skill-card">
-      <div class="skill-category"><span data-lang="en" class="active-lang">Databases & Tools</span><span data-lang="fr">Bases de données & Outils</span></div>
+    <div class="skill-cell">
+      <div class="skill-cat"><span data-lang="en" class="active-lang">Databases &amp; Tools</span><span data-lang="fr">BDD &amp; Outils</span></div>
       <div class="skill-list">
         <span class="skill-tag">SQLite</span><span class="skill-tag">MongoDB</span><span class="skill-tag">Git</span>
         <span class="skill-tag">Unix/Linux</span><span class="skill-tag">UML</span><span class="skill-tag">JWT Auth</span><span class="skill-tag">Agile</span>
@@ -295,116 +541,200 @@
   </div>
 </section>
 
-<div class="full-divider"></div>
-
 <!-- EXPERIENCE -->
 <section id="experience">
-  <div class="section-label reveal">
-    <span data-lang="en" class="active-lang">Experience</span>
-    <span data-lang="fr">Expérience</span>
+  <div class="section-head reveal">
+    <span class="section-index">№02</span>
+    <h2 class="section-title">
+      <span data-lang="en" class="active-lang">Experience</span>
+      <span data-lang="fr">Expérience</span>
+    </h2>
+    <span class="section-note">
+      <span data-lang="en" class="active-lang">Where I've worked</span>
+      <span data-lang="fr">Mon parcours pro</span>
+    </span>
   </div>
-  <h2 class="section-title reveal">
-    <span data-lang="en" class="active-lang">Internship</span>
-    <span data-lang="fr">Stage</span>
-  </h2>
-  <div class="reveal">
-    <div class="exp-item">
-      <div class="exp-meta">
-        <div class="exp-date">Jul – Aug 2025</div>
-        <div>Ben Guerir, Maroc</div>
-      </div>
-      <div class="exp-content">
-        <h3><span data-lang="en" class="active-lang">Data & Supply Chain Analytics Intern</span><span data-lang="fr">Stagiaire Ingénierie Logicielle</span></h3>
-        <div class="exp-company">⬡ OCP GROUP</div>
-        <ul class="exp-bullets">
-          <li><span data-lang="en" class="active-lang">Contributed to a real-time KPI tracking tool for supply chain analysis</span><span data-lang="fr">Contribution à un outil de suivi KPI en temps réel pour l'analyse de la chaîne d'approvisionnement</span></li>
-          <li><span data-lang="en" class="active-lang">Worked on data structuring, analysis and reporting pipelines</span><span data-lang="fr">Travail sur la structuration des données, l'analyse et les pipelines de reporting</span></li>
-          <li><span data-lang="en" class="active-lang">Developed understanding of industrial performance indicators and metrics</span><span data-lang="fr">Développement d'une compréhension des indicateurs de performance industriels</span></li>
-        </ul>
-      </div>
+  <div class="exp-row reveal">
+    <div class="exp-left">
+      <div class="exp-date">Jul 2026 — <span data-lang="en" class="active-lang">Present</span><span data-lang="fr">Présent</span></div>
+      <div>Rabat-Salé-Kénitra, <span data-lang="en" class="active-lang">Morocco</span><span data-lang="fr">Maroc</span></div>
+      <div><span data-lang="en" class="active-lang">Internship · On-site</span><span data-lang="fr">Stage · Sur site</span></div>
+    </div>
+    <div class="exp-right">
+      <h3 class="exp-role">
+        <span data-lang="en" class="active-lang">Artificial Intelligence Research &amp; Development Intern</span>
+        <span data-lang="fr">Stagiaire en Recherche &amp; Développement en Intelligence Artificielle</span>
+      </h3>
+      <div class="exp-company">⬡ UM6P — University Mohammed VI Polytechnic</div>
+      <ul class="exp-bullets">
+        <li><span data-lang="en" class="active-lang">AI research &amp; development within one of Morocco's leading research universities</span><span data-lang="fr">Recherche &amp; développement en IA au sein de l'une des principales universités de recherche du Maroc</span></li>
+      </ul>
+    </div>
+  </div>
+  <div class="exp-row reveal">
+    <div class="exp-left">
+      <div class="exp-date">Jul — Aug 2025</div>
+      <div>Ben Guerir, <span data-lang="en" class="active-lang">Morocco</span><span data-lang="fr">Maroc</span></div>
+      <div><span data-lang="en" class="active-lang">Internship</span><span data-lang="fr">Stage</span></div>
+    </div>
+    <div class="exp-right">
+      <h3 class="exp-role">
+        <span data-lang="en" class="active-lang">Data &amp; Supply Chain Analytics Intern</span>
+        <span data-lang="fr">Stagiaire Data &amp; Supply Chain Analytics</span>
+      </h3>
+      <div class="exp-company">⬡ OCP Group</div>
+      <ul class="exp-bullets">
+        <li><span data-lang="en" class="active-lang">Contributed to a real-time KPI tracking tool for supply chain analysis</span><span data-lang="fr">Contribution à un outil de suivi KPI en temps réel pour l'analyse de la chaîne d'approvisionnement</span></li>
+        <li><span data-lang="en" class="active-lang">Worked on data structuring, analysis and reporting pipelines</span><span data-lang="fr">Travail sur la structuration des données, l'analyse et les pipelines de reporting</span></li>
+        <li><span data-lang="en" class="active-lang">Developed understanding of industrial performance indicators and metrics</span><span data-lang="fr">Développement d'une compréhension des indicateurs de performance industriels</span></li>
+      </ul>
     </div>
   </div>
 </section>
-
-<div class="full-divider"></div>
 
 <!-- PROJECTS -->
 <section id="projects">
-  <div class="section-label reveal">
-    <span data-lang="en" class="active-lang">Projects</span><span data-lang="fr">Projets</span>
+  <div class="section-head reveal">
+    <span class="section-index">№03</span>
+    <h2 class="section-title">
+      <span data-lang="en" class="active-lang">Selected Work</span>
+      <span data-lang="fr">Projets Choisis</span>
+    </h2>
+    <span class="section-note">
+      <span data-lang="en" class="active-lang">2024 — 2026</span>
+      <span data-lang="fr">2024 — 2026</span>
+    </span>
   </div>
-  <h2 class="section-title reveal">
-    <span data-lang="en" class="active-lang">Things I've built</span><span data-lang="fr">Ce que j'ai réalisé</span>
-  </h2>
-  <div class="projects-grid">
-    <div class="project-card reveal">
-      <div class="project-num">01 / AI & RAG</div>
-      <div class="project-title">عدالة - Adala AI Law Assistant</div>
-      <p class="project-desc">An intelligent AI-powered legal assistant specialized in Moroccan law. Features RAG (Retrieval-Augmented Generation) with LLM integration, covering Family Law, Criminal Law, Criminal Procedures, and Contracts. Provides accurate legal answers based on Moroccan legislation with 2000+ users and 1500+ questions cached.</p>
-      <div class="project-tags"><span class="project-tag">Claude API</span><span class="project-tag">RAG</span><span class="project-tag">LLM</span><span class="project-tag">Moroccan Law</span><span class="project-tag">AI</span><span class="project-tag">Full-Stack</span></div>
+
+  <div class="project-row reveal">
+    <span class="project-num">01</span>
+    <div>
+      <span class="project-flag"><span data-lang="en" class="active-lang">Final-Year Project · EMSI</span><span data-lang="fr">Projet de Fin d'Année · EMSI</span></span>
+      <h3 class="project-title">NeuroSeg — <span data-lang="en" class="active-lang">Brain Tumor Segmentation Platform</span><span data-lang="fr">Plateforme de Segmentation de Tumeurs Cérébrales</span></h3>
+      <p class="project-desc">
+        <span data-lang="en" class="active-lang">A web platform for automatic brain tumor segmentation from multimodal MRI scans, powered by a 3D U-Net deep learning model. Takes the four BraTS2020 MRI modalities (T1, T1ce, T2, FLAIR), preprocesses and normalizes the volumes, then identifies tumor regions — rendered in an interactive interface with axial, coronal and sagittal slice views plus a 3D tumor visualization. Includes tumor volume computation and performance scoring against ground truth, illustrating AI's contribution to medical brain imaging.</span>
+        <span data-lang="fr">Plateforme web de segmentation automatique des tumeurs cérébrales à partir d'images IRM multimodales, propulsée par un modèle de deep learning basé sur l'architecture 3D U-Net. Le système prend en entrée les quatre modalités IRM du dataset BraTS2020 (T1, T1ce, T2, FLAIR), prétraite et normalise les volumes, puis identifie les régions tumorales — affichées dans une interface interactive avec des coupes axiale, coronale et sagittale, ainsi qu'un rendu 3D de la tumeur. Intègre le calcul des volumes tumoraux et des scores de performance lorsque la vérité terrain est disponible, illustrant l'apport de l'IA en imagerie cérébrale.</span>
+      </p>
+      <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">PyTorch</span><span class="project-tag">3D U-Net</span><span class="project-tag">BraTS2020</span><span class="project-tag">Medical Imaging</span><span class="project-tag">Deep Learning</span></div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-num">02 / FULLSTACK</div>
-      <div class="project-title"><span data-lang="en" class="active-lang">Flight Booking Web App</span><span data-lang="fr">Application de Réservation de Vols</span></div>
-      <p class="project-desc"><span data-lang="en" class="active-lang">Full-stack app with authentication, search engine, and seat selection. Dynamic booking system with PDF ticket generation and QR codes.</span><span data-lang="fr">Application full-stack avec authentification, moteur de recherche et sélection de siège. Système de réservation dynamique avec génération de billets PDF et QR codes.</span></p>
+    <span class="project-kind">Deep Learning</span>
+  </div>
+
+  <div class="project-row reveal">
+    <span class="project-num">02</span>
+    <div>
+      <span class="project-flag"><span data-lang="en" class="active-lang">Flagship · 2000+ users</span><span data-lang="fr">Phare · 2000+ utilisateurs</span></span>
+      <h3 class="project-title">عدالة — Adala AI Law Assistant</h3>
+      <p class="project-desc">
+        <span data-lang="en" class="active-lang">An intelligent AI-powered legal assistant specialized in Moroccan law. Features RAG (Retrieval-Augmented Generation) with LLM integration, covering Family Law, Criminal Law, Criminal Procedures, and Contracts. Provides accurate legal answers based on Moroccan legislation with 2000+ users and 1500+ questions cached.</span>
+        <span data-lang="fr">Assistant juridique intelligent propulsé par l'IA, spécialisé en droit marocain. RAG (génération augmentée par récupération) avec intégration LLM, couvrant le droit de la famille, le droit pénal, les procédures pénales et les contrats. Réponses juridiques précises basées sur la législation marocaine — 2000+ utilisateurs et 1500+ questions en cache.</span>
+      </p>
+      <div class="project-tags"><span class="project-tag">Claude API</span><span class="project-tag">RAG</span><span class="project-tag">LLM</span><span class="project-tag">Moroccan Law</span><span class="project-tag">Full-Stack</span></div>
+    </div>
+    <span class="project-kind">AI &amp; RAG</span>
+  </div>
+
+  <div class="project-row reveal">
+    <span class="project-num">03</span>
+    <div>
+      <h3 class="project-title"><span data-lang="en" class="active-lang">Flight Booking Web App</span><span data-lang="fr">Application de Réservation de Vols</span></h3>
+      <p class="project-desc">
+        <span data-lang="en" class="active-lang">Full-stack app with authentication, search engine, and seat selection. Dynamic booking system with PDF ticket generation and QR codes.</span>
+        <span data-lang="fr">Application full-stack avec authentification, moteur de recherche et sélection de siège. Système de réservation dynamique avec génération de billets PDF et QR codes.</span>
+      </p>
       <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">Django</span><span class="project-tag">Bootstrap</span><span class="project-tag">JavaScript</span><span class="project-tag">SQLite</span></div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-num">03 / FULLSTACK</div>
-      <div class="project-title"><span data-lang="en" class="active-lang">Inventory Management System</span><span data-lang="fr">Système de Gestion des Stocks</span></div>
-      <p class="project-desc"><span data-lang="en" class="active-lang">Complete inventory system with JWT authentication and reporting. Real-time stock alerts and PDF report generation.</span><span data-lang="fr">Système d'inventaire complet avec authentification JWT et reporting. Alertes de stock en temps réel et génération de rapports PDF.</span></p>
+    <span class="project-kind">Fullstack</span>
+  </div>
+
+  <div class="project-row reveal">
+    <span class="project-num">04</span>
+    <div>
+      <h3 class="project-title"><span data-lang="en" class="active-lang">Inventory Management System</span><span data-lang="fr">Système de Gestion des Stocks</span></h3>
+      <p class="project-desc">
+        <span data-lang="en" class="active-lang">Complete inventory system with JWT authentication and reporting. Real-time stock alerts and PDF report generation.</span>
+        <span data-lang="fr">Système d'inventaire complet avec authentification JWT et reporting. Alertes de stock en temps réel et génération de rapports PDF.</span>
+      </p>
       <div class="project-tags"><span class="project-tag">JWT</span><span class="project-tag">REST API</span><span class="project-tag">PDF Reports</span><span class="project-tag">Alerts</span></div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-num">04 / WEB + DESKTOP</div>
-      <div class="project-title"><span data-lang="en" class="active-lang">Travel Planner</span><span data-lang="fr">Planificateur de Voyages</span></div>
-      <p class="project-desc"><span data-lang="en" class="active-lang">Dual-platform travel planning app in React/Node.js and Java Swing. Authentication, destination search, budget tracking.</span><span data-lang="fr">Application de planification de voyages double plateforme en React/Node.js et Java Swing. Authentification, recherche de destinations, suivi budgétaire.</span></p>
+    <span class="project-kind">Fullstack</span>
+  </div>
+
+  <div class="project-row reveal">
+    <span class="project-num">05</span>
+    <div>
+      <h3 class="project-title"><span data-lang="en" class="active-lang">Travel Planner</span><span data-lang="fr">Planificateur de Voyages</span></h3>
+      <p class="project-desc">
+        <span data-lang="en" class="active-lang">Dual-platform travel planning app in React/Node.js and Java Swing. Authentication, destination search, budget tracking.</span>
+        <span data-lang="fr">Application de planification de voyages double plateforme en React/Node.js et Java Swing. Authentification, recherche de destinations, suivi budgétaire.</span>
+      </p>
       <div class="project-tags"><span class="project-tag">React</span><span class="project-tag">Node.js</span><span class="project-tag">MongoDB</span><span class="project-tag">Java Swing</span></div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-num">05 / MACHINE LEARNING</div>
-      <div class="project-title"><span data-lang="en" class="active-lang">Random Forest Classifier</span><span data-lang="fr">Classificateur Random Forest</span></div>
-      <p class="project-desc"><span data-lang="en" class="active-lang">Predictive model using Random Forest algorithm. Focus on feature engineering, model evaluation and accuracy optimization.</span><span data-lang="fr">Modèle prédictif utilisant l'algorithme Random Forest. Accent sur le feature engineering, l'évaluation du modèle et l'optimisation de la précision.</span></p>
+    <span class="project-kind">Web + Desktop</span>
+  </div>
+
+  <div class="project-row reveal">
+    <span class="project-num">06</span>
+    <div>
+      <h3 class="project-title"><span data-lang="en" class="active-lang">Random Forest Classifier</span><span data-lang="fr">Classificateur Random Forest</span></h3>
+      <p class="project-desc">
+        <span data-lang="en" class="active-lang">Predictive model using Random Forest algorithm. Focus on feature engineering, model evaluation and accuracy optimization.</span>
+        <span data-lang="fr">Modèle prédictif utilisant l'algorithme Random Forest. Accent sur le feature engineering, l'évaluation du modèle et l'optimisation de la précision.</span>
+      </p>
       <div class="project-tags"><span class="project-tag">Python</span><span class="project-tag">Scikit-learn</span><span class="project-tag">Random Forest</span><span class="project-tag">Data Science</span></div>
     </div>
-    <div class="project-card reveal">
-      <div class="project-num">06 / DATA ANALYTICS</div>
-      <div class="project-title"><span data-lang="en" class="active-lang">Real-time KPI Tracking Tool</span><span data-lang="fr">Outil de Suivi KPI en Temps Réel</span></div>
-      <p class="project-desc"><span data-lang="en" class="active-lang">Contributed to a real-time KPI tracking tool for supply chain analysis. Worked on data structuring, analysis and reporting pipelines.</span><span data-lang="fr">Contribution à un outil de suivi KPI en temps réel pour l'analyse de la chaîne d'approvisionnement. Travail sur la structuration des données, l'analyse et les pipelines de reporting.</span></p>
+    <span class="project-kind">Machine Learning</span>
+  </div>
+
+  <div class="project-row reveal">
+    <span class="project-num">07</span>
+    <div>
+      <h3 class="project-title"><span data-lang="en" class="active-lang">Real-time KPI Tracking Tool</span><span data-lang="fr">Outil de Suivi KPI en Temps Réel</span></h3>
+      <p class="project-desc">
+        <span data-lang="en" class="active-lang">Contributed to a real-time KPI tracking tool for supply chain analysis. Worked on data structuring, analysis and reporting pipelines.</span>
+        <span data-lang="fr">Contribution à un outil de suivi KPI en temps réel pour l'analyse de la chaîne d'approvisionnement. Travail sur la structuration des données, l'analyse et les pipelines de reporting.</span>
+      </p>
       <div class="project-tags"><span class="project-tag">Data Analysis</span><span class="project-tag">Supply Chain</span><span class="project-tag">KPI Tracking</span><span class="project-tag">Reporting</span></div>
     </div>
+    <span class="project-kind">Data Analytics</span>
   </div>
 </section>
 
-<div class="full-divider"></div>
-
 <!-- EDUCATION -->
 <section id="education">
-  <div class="section-label reveal">
-    <span data-lang="en" class="active-lang">Education</span><span data-lang="fr">Formation</span>
+  <div class="section-head reveal">
+    <span class="section-index">№04</span>
+    <h2 class="section-title">
+      <span data-lang="en" class="active-lang">Education</span>
+      <span data-lang="fr">Formation</span>
+    </h2>
+    <span class="section-note">
+      <span data-lang="en" class="active-lang">Academic background</span>
+      <span data-lang="fr">Parcours académique</span>
+    </span>
   </div>
-  <h2 class="section-title reveal">
-    <span data-lang="en" class="active-lang">Academic background</span><span data-lang="fr">Parcours académique</span>
-  </h2>
-  <div class="edu-card reveal">
+  <div class="edu-row reveal">
     <div>
       <div class="edu-school">Ecole Marocaine des Sciences de l'Ingénieur</div>
-      <div class="edu-degree"><span data-lang="en" class="active-lang">Engineering Degree · Computer Science & Networks (EMSI)</span><span data-lang="fr">Diplôme d'Ingénieur · Informatique & Réseaux (EMSI)</span></div>
+      <div class="edu-degree">
+        <span data-lang="en" class="active-lang">Engineering Degree · Computer Science &amp; Networks — AI &amp; Data Science Specialization (EMSI)</span>
+        <span data-lang="fr">Cycle Ingénieur en Génie Informatique et Réseaux — Spécialisation en Intelligence Artificielle et Data Science (EMSI)</span>
+      </div>
     </div>
     <div class="edu-years">2022 — 2027</div>
   </div>
 </section>
 
-<div class="full-divider"></div>
-
 <!-- CERTIFICATIONS -->
 <section id="certifications">
-  <div class="section-label reveal">
-    <span data-lang="en" class="active-lang">Certifications</span><span data-lang="fr">Certifications</span>
+  <div class="section-head reveal">
+    <span class="section-index">№05</span>
+    <h2 class="section-title">
+      <span data-lang="en" class="active-lang">Certifications</span>
+      <span data-lang="fr">Certifications</span>
+    </h2>
+    <span class="section-note">23 <span data-lang="en" class="active-lang">credentials</span><span data-lang="fr">accréditations</span></span>
   </div>
-  <h2 class="section-title reveal">
-    <span data-lang="en" class="active-lang">Credentials</span><span data-lang="fr">Mes accréditations</span>
-  </h2>
   <div class="cert-grid reveal">
     <div class="cert-card"><div class="cert-issuer">Anthropic</div><div class="cert-name">Claude 101</div><div class="cert-date">Mar 2026</div></div>
     <div class="cert-card"><div class="cert-issuer">Anthropic</div><div class="cert-name">Building with the Claude API</div><div class="cert-date">Mar 2026</div></div>
@@ -414,7 +744,7 @@
     <div class="cert-card"><div class="cert-issuer">Anthropic</div><div class="cert-name">Introduction to Model Context Protocol</div><div class="cert-date">Mar 2026</div></div>
     <div class="cert-card"><div class="cert-issuer">Anthropic</div><div class="cert-name">Model Context Protocol: Advanced Topics</div><div class="cert-date">Mar 2026</div></div>
     <div class="cert-card"><div class="cert-issuer">Anthropic</div><div class="cert-name">Introduction to Agent Skills</div><div class="cert-date">Mar 2026</div></div>
-    <div class="cert-card"><div class="cert-issuer">Anthropic</div><div class="cert-name">AI Fluency: Framework & Foundations</div><div class="cert-date">Mar 2026</div></div>
+    <div class="cert-card"><div class="cert-issuer">Anthropic</div><div class="cert-name">AI Fluency: Framework &amp; Foundations</div><div class="cert-date">Mar 2026</div></div>
     <div class="cert-card"><div class="cert-issuer">Anthropic</div><div class="cert-name">Teaching AI Fluency</div><div class="cert-date">Mar 2026</div></div>
     <div class="cert-card"><div class="cert-issuer">Anthropic</div><div class="cert-name">AI Fluency for Students</div><div class="cert-date">Mar 2026</div></div>
     <div class="cert-card"><div class="cert-issuer">Anthropic</div><div class="cert-name">AI Fluency for Educators</div><div class="cert-date">Mar 2026</div></div>
@@ -423,8 +753,8 @@
     <div class="cert-card"><div class="cert-issuer">UC San Diego</div><div class="cert-name">Introduction to Big Data</div><div class="cert-date">Mar 2026</div></div>
     <div class="cert-card"><div class="cert-issuer">Meta</div><div class="cert-name">React Native</div><div class="cert-date">Jan 2026</div></div>
     <div class="cert-card"><div class="cert-issuer">Meta</div><div class="cert-name">React Basics</div><div class="cert-date">Dec 2025</div></div>
-    <div class="cert-card"><div class="cert-issuer">IBM</div><div class="cert-name">Python for Data Science, AI & Development</div><div class="cert-date">Mar 2025</div></div>
-    <div class="cert-card"><div class="cert-issuer">HKUST</div><div class="cert-name">Software Design & Project Management</div><div class="cert-date">Mar 2025</div></div>
+    <div class="cert-card"><div class="cert-issuer">IBM</div><div class="cert-name">Python for Data Science, AI &amp; Development</div><div class="cert-date">Mar 2025</div></div>
+    <div class="cert-card"><div class="cert-issuer">HKUST</div><div class="cert-name">Software Design &amp; Project Management</div><div class="cert-date">Mar 2025</div></div>
     <div class="cert-card"><div class="cert-issuer">École Polytechnique</div><div class="cert-name">La recherche documentaire</div><div class="cert-date">Mar 2025</div></div>
     <div class="cert-card"><div class="cert-issuer">EPFL</div><div class="cert-name">OOP in C++</div><div class="cert-date">Dec 2024</div></div>
     <div class="cert-card"><div class="cert-issuer">Johns Hopkins University</div><div class="cert-name">The Unix Workbench</div><div class="cert-date">Nov 2024</div></div>
@@ -432,68 +762,70 @@
   </div>
 </section>
 
-<div class="full-divider"></div>
-
 <!-- CONTACT -->
-<section id="contact">
-  <div class="section-label reveal">Contact</div>
-  <div class="contact-wrapper reveal">
-    <h2 class="contact-tagline">
-      <span data-lang="en" class="active-lang">Let's build something<br/>together.</span>
-      <span data-lang="fr">Construisons quelque chose<br/>ensemble.</span>
+<section id="contact" class="contact-section">
+  <div class="contact-inner">
+    <div class="contact-label reveal">№06 — Contact</div>
+    <h2 class="contact-big reveal">
+      <span data-lang="en" class="active-lang">Let's build<br/>something <em>together.</em></span>
+      <span data-lang="fr">Construisons<br/>quelque chose <em>ensemble.</em></span>
     </h2>
-    <p class="contact-sub">
+    <p class="contact-sub reveal">
       <span data-lang="en" class="active-lang">Open to internship opportunities, collaborations, and interesting projects.</span>
       <span data-lang="fr">Ouvert aux opportunités de stage, collaborations et projets intéressants.</span>
     </p>
-    <div class="contact-links">
-      <a href="mailto:aymane.errachidi@emsi-edu.ma" class="contact-link"><div class="contact-link-icon">✉</div>aymane.errachidi@emsi-edu.ma</a>
-      <a href="https://linkedin.com/in/aymaneerrachidi" target="_blank" class="contact-link"><div class="contact-link-icon">in</div>linkedin.com/in/aymaneerrachidi</a>
-      <a href="https://github.com/Aymaneerrachidi" target="_blank" class="contact-link"><div class="contact-link-icon">⌥</div>github.com/Aymaneerrachidi</a>
-      <a href="tel:+212691882270" class="contact-link"><div class="contact-link-icon">☏</div>+212 691 882 270</a>
+    <div class="contact-links reveal">
+      <a href="mailto:aymane.errachidi@emsi-edu.ma" class="contact-link">
+        <span class="contact-link-label">Email</span>
+        <span class="contact-link-value">aymane.errachidi@emsi-edu.ma</span>
+      </a>
+      <a href="https://linkedin.com/in/aymaneerrachidi" target="_blank" class="contact-link">
+        <span class="contact-link-label">LinkedIn</span>
+        <span class="contact-link-value">/in/aymaneerrachidi</span>
+      </a>
+      <a href="https://github.com/Aymaneerrachidi" target="_blank" class="contact-link">
+        <span class="contact-link-label">GitHub</span>
+        <span class="contact-link-value">@Aymaneerrachidi</span>
+      </a>
+      <a href="tel:+212691882270" class="contact-link">
+        <span class="contact-link-label"><span data-lang="en" class="active-lang">Phone</span><span data-lang="fr">Téléphone</span></span>
+        <span class="contact-link-value">+212 691 882 270</span>
+      </a>
     </div>
   </div>
 </section>
 
 <footer>
-  <span class="footer-copy">© 2025 Aymane Er-rachidi · Rabat, Maroc</span>
-  <div class="footer-dot"></div>
-  <span class="footer-copy"><span data-lang="en" class="active-lang">Engineer-Student · Data & AI</span><span data-lang="fr">Étudiant Ingénieur · Data & IA</span></span>
+  <span class="footer-copy">© 2026 Aymane Er-rachidi · Rabat, <span data-lang="en" class="active-lang">Morocco</span><span data-lang="fr">Maroc</span></span>
+  <span class="footer-mark">✳</span>
+  <span class="footer-copy"><span data-lang="en" class="active-lang">Engineer-Student · Data &amp; AI</span><span data-lang="fr">Étudiant Ingénieur · Data &amp; IA</span></span>
 </footer>
 
 <script>
-  // Smooth scroll
-  document.getElementById('viewProjectsBtn').addEventListener('click', e => {
-    e.preventDefault();
-    document.getElementById('projects').scrollIntoView({ behavior: 'smooth' });
-  });
-  document.getElementById('getInTouchBtn').addEventListener('click', e => {
-    e.preventDefault();
-    document.getElementById('contact').scrollIntoView({ behavior: 'smooth' });
-  });
-
   // Language toggle
-  let currentLang = 'en';
   function setLang(lang) {
-    currentLang = lang;
     document.querySelectorAll('[data-lang]').forEach(el => {
       el.classList.toggle('active-lang', el.dataset.lang === lang);
     });
     document.getElementById('btnEN').classList.toggle('active', lang === 'en');
     document.getElementById('btnFR').classList.toggle('active', lang === 'fr');
+    document.documentElement.lang = lang;
   }
 
+  // Duplicate marquee content for seamless loop
+  const track = document.getElementById('marqueeTrack');
+  track.innerHTML += track.innerHTML;
+
   // Reveal on scroll
-  const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(entries => {
     entries.forEach((entry, i) => {
       if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 60);
+        setTimeout(() => entry.target.classList.add('visible'), i * 70);
         observer.unobserve(entry.target);
       }
     });
   }, { threshold: 0.08 });
-  reveals.forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 </script>
 </body>
 </html>
