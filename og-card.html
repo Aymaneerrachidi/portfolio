@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Aymane Er-rachidi OG Card</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=IBM+Plex+Mono:wght@400;500;600&family=Archivo:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #e4e9d4;
+      --paper-deep: #d6ddbf;
+      --ink: #23271a;
+      --ink-soft: #4a5038;
+      --muted: #7d866a;
+      --line: #23271a;
+      --accent: #47691f;
+      --pine: #6b5a1f;
+    }
+
+    * { box-sizing: border-box; }
+
+    html,
+    body {
+      width: 1200px;
+      height: 630px;
+      margin: 0;
+      overflow: hidden;
+      background: var(--paper);
+      color: var(--ink);
+      font-family: "Archivo", sans-serif;
+    }
+
+    body::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: 0.45;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.05'/%3E%3C/svg%3E");
+      background-size: 220px;
+    }
+
+    .card {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1fr 390px;
+      width: 1200px;
+      height: 630px;
+      border: 8px solid var(--ink);
+      background:
+        linear-gradient(90deg, rgba(35, 39, 26, 0.06) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(35, 39, 26, 0.06) 1px, transparent 1px),
+        var(--paper);
+      background-size: 48px 48px;
+    }
+
+    .content {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      padding: 58px 64px 54px 64px;
+      border-right: 2px solid var(--line);
+    }
+
+    .topline,
+    .meta,
+    .footer {
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 17px;
+      line-height: 1;
+      letter-spacing: 0.11em;
+      text-transform: uppercase;
+    }
+
+    .topline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: var(--pine);
+    }
+
+    .mark {
+      color: var(--accent);
+      font-size: 28px;
+      letter-spacing: 0;
+    }
+
+    h1 {
+      margin: 0 0 30px;
+      font-family: "Fraunces", serif;
+      font-size: 102px;
+      line-height: 0.9;
+      letter-spacing: -0.045em;
+      text-transform: uppercase;
+      max-width: 690px;
+    }
+
+    h1 em {
+      color: var(--accent);
+      font-style: italic;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: -0.02em;
+    }
+
+    .summary {
+      max-width: 720px;
+      margin: 0;
+      color: var(--ink-soft);
+      font-size: 29px;
+      line-height: 1.23;
+      font-weight: 600;
+    }
+
+    .summary strong {
+      color: var(--ink);
+      font-weight: 700;
+    }
+
+    .meta {
+      display: flex;
+      gap: 18px;
+      color: var(--muted);
+      margin-top: 36px;
+    }
+
+    .meta span {
+      display: inline-flex;
+      align-items: center;
+      min-height: 36px;
+      padding-right: 18px;
+      border-right: 1px solid rgba(35, 39, 26, 0.35);
+    }
+
+    .meta span:last-child {
+      border-right: 0;
+      padding-right: 0;
+    }
+
+    .footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 28px;
+      border-top: 2px solid var(--line);
+      color: var(--ink);
+    }
+
+    .portrait {
+      position: relative;
+      background: var(--paper-deep);
+      overflow: hidden;
+    }
+
+    .portrait img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      filter: saturate(1.03) contrast(1.04);
+    }
+
+    .portrait::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(0deg, rgba(35, 39, 26, 0.26), transparent 42%),
+        linear-gradient(90deg, rgba(228, 233, 212, 0.18), transparent 32%);
+      pointer-events: none;
+    }
+
+    .side-label {
+      position: absolute;
+      left: 28px;
+      bottom: 28px;
+      z-index: 2;
+      font-family: "IBM Plex Mono", monospace;
+      font-size: 13px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--paper);
+    }
+  </style>
+</head>
+<body>
+  <main class="card" aria-label="Aymane Er-rachidi portfolio preview card">
+    <section class="content">
+      <div class="topline">
+        <span>Engineer-Student / Data &amp; AI</span>
+        <span class="mark">*</span>
+      </div>
+
+      <div>
+        <h1>Aymane<br><em>Er-rachidi</em></h1>
+        <p class="summary">
+          Building intelligent systems across <strong>Data Science</strong>,
+          <strong>AI</strong>, RAG assistants, and modern web engineering.
+        </p>
+        <div class="meta">
+          <span>Python</span>
+          <span>PyTorch</span>
+          <span>Claude API</span>
+          <span>React</span>
+        </div>
+      </div>
+
+      <div class="footer">
+        <span>Rabat, Morocco</span>
+        <span>Portfolio 2026</span>
+      </div>
+    </section>
+
+    <aside class="portrait">
+      <img src="WhatsApp%20Image%202026-03-16%20at%2001.40.53.jpeg" alt="">
+      <span class="side-label">Fig. 01 - The Engineer</span>
+    </aside>
+  </main>
+</body>
+</html>
